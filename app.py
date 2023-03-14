@@ -5,6 +5,7 @@ import json
 
 app = Flask(__name__)
 
+
 @app.route('/hello')
 def greet():
     result = {'foo': 'bar',
@@ -14,4 +15,4 @@ def greet():
 
 
 if __name__ == '__main__':
-    app.run(port=8000, host='0.0.0.0')
+    app.run(port=8000)
