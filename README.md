@@ -41,13 +41,31 @@ for testing, but should not be used in production.
     `gunicorn --bind 0.0.0.0:5000 app:app`
 * Open a web browser and load `http://localhost:5000/hello` 
 
+## Launch at boot (on AWS)
 
-
-## Launch on AWS instance
-
-* Clone to repo
 * Copy `flask.service` to `/etc/systemd/system/`
 * Run `sudo systemctl enable flask`
 * Run `sudo systemctl start flask`
 * Status: `sudo systemctl status flask`
 * Logs: `sudo journalctl -u flask`
+
+
+## Auto-Configure on AWS
+
+When you launch an instance using the Learner Lab
+
+* Specify a name for the machine
+* Select `vockey` for the Key Pair
+* Select "Allow HTTP traffic from the internet" under "Network settings"
+* Expand the "Advanced details," and in "User data" add
+
+```
+#!/bin/bash
+yum install -y git
+git clone https://github.com/cs220s23/sys_admin.git /sys_admin
+python3 -m venv /sys_admin/.venv
+/sys_admin/.venv/bin/pip install -r /sys_admin/requirements.txt
+cp /sys_admin/aws/flask.service /etc/systemd/system
+systemctl enable flask
+systemctl start flask
+```
