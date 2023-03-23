@@ -69,3 +69,5 @@ cp /sys_admin/aws/flask.service /etc/systemd/system
 systemctl enable flask
 systemctl start flask
 ```
+
+AWS logs the output of the script in `/var/log/cloud-init-output.log`.
